@@ -12,16 +12,17 @@ app.use(cors(corsOption))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended : true}))
 
-// const db = require("./app/models")
-// db.sequelize.sync({force:true}).then(()=>{
-//     console.log("Drop and re-sync db")
-// })
+const db = require("./app/models")
+db.sequelize.sync({force:false}).then(()=>{
+    console.log("Drop and re-sync db")
+})
 
 app.get('/', (req,res) => {
     res.json({message: "Membuat API Menggunakan Express"})
 })
 
 require("./app/routes/mahasiswa.routes")(app)
+require("./app/routes/user.routes")(app)
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {

@@ -1,5 +1,6 @@
 module.exports = app => {
     const mahasiswa = require("../controllers/mahasiswa.controller")
+    const authentification = require("../middleware/authjwt")
     var router = require("express").Router()
 
     router.post("/", mahasiswa.create)
@@ -9,5 +10,5 @@ module.exports = app => {
     router.delete("/:id", mahasiswa.delete)
     router.delete("/", mahasiswa.deleteAll)
 
-    app.use("/api/mahasiswa", router)
+    app.use("/api/mahasiswa",[authentification.verifikasiToken], router)
 }
