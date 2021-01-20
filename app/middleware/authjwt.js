@@ -4,7 +4,7 @@ const User = db.user
 const auth = require("../config/auth.config")
 
 verifikasiToken = (req, res, next) => {
-    let token = req.headers["x-access-token"]
+    let token = req.headers.authorization.split(' ')[1]
 
     if(!token){
         return res.status(403).send({
@@ -18,7 +18,7 @@ verifikasiToken = (req, res, next) => {
                 message: "Unauthorized"
             })
         } else {
-            req.id = decoded.id
+            // req.id = decoded.id
             next()
         }
     })

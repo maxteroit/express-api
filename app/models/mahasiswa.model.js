@@ -11,6 +11,9 @@ module.exports = (sequelize,Sequelize) => {
         },
         nim: {
             type: Sequelize.STRING
+        },
+        foto: {
+            type: Sequelize.BLOB("long")
         }
     })
 

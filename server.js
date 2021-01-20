@@ -1,6 +1,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
+require("dotenv").config()
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.get('/', (req,res) => {
 
 require("./app/routes/mahasiswa.routes")(app)
 require("./app/routes/user.routes")(app)
+require("./app/routes/matakuliah.routes")(app)
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {

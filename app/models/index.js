@@ -19,4 +19,11 @@ db.sequelize = sequelize
 
 db.mahasiswa = require("./mahasiswa.model.js")(sequelize, Sequelize)
 db.user = require("./user.model.js")(sequelize, Sequelize)
+db.matakuliah = require("./matakuliah.model")(sequelize, Sequelize)
+
+db.mahasiswa.hasMany(db.matakuliah, {as : "matakuliah"})
+db.matakuliah.belongsTo(db.mahasiswa, {
+    foreignKey:"mahasiswaId",
+    as:"mahasiswa"
+})
 module.exports = db;

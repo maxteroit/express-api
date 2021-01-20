@@ -1,6 +1,7 @@
 const db = require("../models")
 const Mahasiswa = db.mahasiswa
 const Op = db.Sequelize.Op
+const fs = require("fs")
 
 exports.create = (req, res) => {
     if(!req.body.nama){
@@ -29,9 +30,11 @@ exports.create = (req, res) => {
             jurusan: req.body.jurusan,
             angkatan: req.body.angkatan,
             nim: req.body.nim,
+            foto: fs.readFileSync("./public/uploads/" + req.file.filename)
         }
 
         Mahasiswa.create(mahasiswa).then(data => {
+            // fs.writeFileSync("./public/uploads/"+req.file.filename, data.data)
             res.send(data)
         }).catch(err => {
             res.status(500).send({
@@ -59,7 +62,7 @@ exports.findAll = (req, res) => {
 
 exports.findOne = (req, res) => {
     const id = req.params.id
-    Mahasiswa.findByPk(id)
+    Mahasiswa.findByPk(id,{include : ["matakuliah"]})
     .then(data => {
         res.send(data)
     })
